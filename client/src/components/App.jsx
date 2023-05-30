@@ -9,23 +9,24 @@ import StarTemplate from './shared/StarTemplate';
 
 // note: if App parent re-renders child components will render too
 export default function App() {
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState({id: 1});
   const [metaData, setMetaData] = useState(null);
 
-  useEffect(() => {
-    axios.get('/products/40344')
-      .then(({ data }) => {
-        setProduct(data);
-        return data;
-      })
-      .catch((err) => console.error('There was a problem retrieving product data: ', err));
-  }, []);
+  // useEffect(() => {
+  //   axios.get('/products/1')
+  //     .then(({ data }) => {
+  //       console.log('data shape', data)
+  //       setProduct(data);
+  //       return data;
+  //     })
+  //     .catch((err) => console.error('There was a problem retrieving product data: ', err));
+  // }, []);
 
   useEffect(() => {
     if (product) {
       axios.get('/reviews/meta', {
         params: {
-          product_id: product.id,
+          product_id: 1,
         },
       })
         .then(({ data }) => setMetaData(data))
@@ -41,10 +42,10 @@ export default function App() {
         <div className="compName">Moda</div>
       </div>
       <StarTemplate />
-      <Product product={product} setProduct={setProduct} metaData={metaData} />
-      <RelatedProductsList product={product} updateProduct={updateProduct} />
-      <ClosetList product={product} />
-      <QAModule product={product} />
+      {/* <Product product={product} setProduct={setProduct} metaData={metaData} /> */}
+      {/* <RelatedProductsList product={product} updateProduct={updateProduct} /> */}
+      {/* <ClosetList product={product} /> */}
+      {/* <QAModule product={product} /> */}
       <RatingsAndReviews product={product} metaData={metaData} />
     </div>
   );
